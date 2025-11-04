@@ -29,7 +29,7 @@ class BaseSchema(ABC, Generic[T]):
         ...
 
     @abstractmethod
-    def find_many(self) -> list[T]:
+    def find_many(self, limit: int = 2000) -> list[T]:
         ...
 
     @abstractmethod

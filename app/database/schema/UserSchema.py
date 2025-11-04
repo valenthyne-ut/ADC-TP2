@@ -42,8 +42,34 @@ class UserSchema(BaseSchema["User"]):
         if result is not None:
             return User(result[0], result[1])
 
-    def find_many(self) -> list[User]:
-        return []
+    def find_many(self, limit: int = 2000, like_name: str | None = None) -> list[User]:
+        cursor = self._connection.cursor()
+
+        if like_name is None:
+            result = cursor.execute("""
+                SELECT id, name
+                FROM User
+                LIMIT :limit
+            """, {
+                "limit": limit
+            }).fetchall()
+        else:
+            result = cursor.execute("""
+                SELECT id, name
+                FROM User
+                WHERE name LIKE :name
+                LIMIT :limit
+            """, {
+                "name": like_name,
+                "limit": limit
+            }).fetchall()
+
+        user_list: list[User] = []
+        
+        for item in result:
+            user_list.append(User(item[0], item[1]))
+
+        return user_list
 
     def create_one(self, name: str = "Unspecified") -> User:
         cursor = self._connection.cursor()
