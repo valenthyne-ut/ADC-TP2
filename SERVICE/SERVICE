@@ -1,7 +1,8 @@
-(
-    ["Serviços"]
-    ["Nome:","Limpeza de Piscinas", "Preço", "500€", "Duração:","3H"]
-    ["Nome:","Tratamento Quimico", "Preço", "100€", "Duração:","15min"]
-    ["Nome:","Manutenção da Piscina", "Preço", "600€", "Duração:","2H"]
-    ["Nome:","Inspeção Técnica de Piscina", "Preço", "1000€", "Duração:","3H"]
-)
+{
+    "Serviços":[
+    {"Nome:":"Limpeza de Piscinas","Preço": "500€","Duração:":"3H"},
+    {"Nome:":"Tratamento Quimico","Preço":"100€","Duração:":"15min"},
+    {"Nome:":"Manutenção da Piscina","Preço":"600€","Duração:":"2H"},
+    {"Nome:":"Inspeção Técnica de Piscina","Preço":"1000€","Duração:":"3H"},
+    ]
+}
