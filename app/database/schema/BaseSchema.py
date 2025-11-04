@@ -37,5 +37,5 @@ class BaseSchema(ABC, Generic[T]):
         ...
 
     @abstractmethod
-    def delete(self, instance: T) -> None:
+    def delete(self, instance: T) -> bool:
         ...

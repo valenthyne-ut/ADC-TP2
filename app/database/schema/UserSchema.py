@@ -85,5 +85,13 @@ class UserSchema(BaseSchema["User"]):
 
         return User(cursor.lastrowid, name)
         
-    def delete(self, instance: User) -> None:
-        return None
+    def delete(self, instance: User) -> bool:
+        cursor = self._connection.cursor()
+        cursor.execute("""
+            DELETE FROM User
+            WHERE id=:id
+        """, {
+            "id": instance.id
+        })
+
+        return cursor.rowcount > 0
