@@ -1,0 +1,33 @@
+{
+    "Utilizadores":[
+    {"Nome:":"Afonso M.",
+    "Morada:":"Rua do Farol",
+    "Conatcto:":"987654321",
+    "Email:":"afonsom@gmail.com"},
+
+    {"Nome:":"David O.",
+    "Morada:":"Rua da Penha",
+    "Conatcto:":"987658721",
+    "Email:":"davido@gmail.com"},
+    
+    {"Nome:":"Orlando M.",
+    "Morada:":"Rua das Pessoas",
+    "Conatcto:":"987654481",
+    "Email:":"orlandom@gmail.com"}
+    ],
+   
+     "Técnicos":[
+    {"Nome:":"Gustavo A.",
+    "Conatcto:":"987618721",
+    "Email:":"gustavoa@gmail.com",
+    "Especialização:":"Limpeza e Manutenção de Piscinas",
+    "Disponibilidade:":"Todos os dias"},
+
+    {"Nome:":"Diogo V.",
+    "Conatcto:":"987358721",
+    "Email:":"diogo@gmail.com",
+    "Especialização:":"Tratamento Quimico e Inspeção Técnica de Piscinas",
+    "Disponibilidade:":"Todos os dias"}
+    ]
+    
+}
