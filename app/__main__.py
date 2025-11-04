@@ -7,5 +7,6 @@ def main():
 if __name__ == "__main__":
     main()
 
-    user = UserSchema.instance.create_one("Teste")
-    UserSchema.instance.find_one(user.id)
+    # UserSchema.instance.create_one("Teste")
+    user = UserSchema.instance.find_one(1)
+    print(user)

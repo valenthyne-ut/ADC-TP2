@@ -28,7 +28,7 @@ class UserSchema(BaseSchema["User"]):
                 WHERE id=:id
             """, {
                 "id": id
-            })
+            }).fetchone()
         else:
             result = cursor.execute("""
                 SELECT id, name
@@ -37,9 +37,10 @@ class UserSchema(BaseSchema["User"]):
                 LIMIT 1
             """, {
                 "name": like_name
-            })
+            }).fetchone()
 
-        print(result.fetchall())
+        if result is not None:
+            return User(result[0], result[1])
 
     def find_many(self) -> list[User]:
         return []
