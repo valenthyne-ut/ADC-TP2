@@ -1,8 +1,9 @@
 from sqlite3 import Connection
+
 from app.database.models.User import User
 from app.database.schema.BaseSchema import BaseSchema
 
-class UserSchema(BaseSchema):
+class UserSchema(BaseSchema["User"]):
     def __init__(self, connection: Connection):
         super().__init__(connection)
         if not self._table_exists("User"):

@@ -1,8 +1,11 @@
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
+from typing import Generic, TypeVar
+
+T = TypeVar("T", bound="Base", default="Base")
 
 @dataclass
-class Base(ABC):
+class Base(ABC, Generic[T]):
     id: int
 
     @abstractmethod

@@ -1,10 +1,11 @@
 from abc import ABC, abstractmethod
-from sqlite3 import Connection
-from typing import Self
 from dataclasses import field
-from app.database.models.Base import Base
+from sqlite3 import Connection
+from typing import Generic, Self
 
-class BaseSchema(ABC):
+from app.database.models.Base import T
+
+class BaseSchema(ABC, Generic[T]):
     instance: Self = field(init=False)
 
     def __init__(self, connection: Connection):
@@ -24,17 +25,17 @@ class BaseSchema(ABC):
         return len(result) > 0
 
     @abstractmethod
-    def find_one(self) -> Base | None:
+    def find_one(self) -> T | None:
         ...
 
     @abstractmethod
-    def find_many(self) -> list[Base]:
+    def find_many(self) -> list[T]:
         ...
 
     @abstractmethod
-    def create_one(self) -> Base:
+    def create_one(self) -> T:
         ...
 
     @abstractmethod
-    def delete(self, instance: Base) -> None:
+    def delete(self, instance: T) -> None:
         ...
