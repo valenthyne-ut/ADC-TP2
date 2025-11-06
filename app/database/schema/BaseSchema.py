@@ -1,9 +1,16 @@
 from abc import ABC, abstractmethod
-from dataclasses import field
+from dataclasses import dataclass, field
 from sqlite3 import Connection
-from typing import Generic, Self
+from typing import Any, Generic, Literal, Self
 
 from app.database.models.Base import T
+
+@dataclass
+class Filter:
+    name: str
+    value: Any
+    comparison_operator: Literal["=", "<>", "!=", "<", "<=", ">=", ">", "LIKE"] = "="
+    logical_operator: Literal["AND", "OR", "NOT"] = "AND"
 
 class BaseSchema(ABC, Generic[T]):
     instance: Self = field(init=False)
@@ -23,6 +30,29 @@ class BaseSchema(ABC, Generic[T]):
         }).fetchall()
 
         return len(result) > 0
+
+    @staticmethod
+    def _construct_basic_filter_clause(filters: list[Filter]) -> tuple[str, dict[str, Any]]:
+        if len(filters) <= 0:
+            raise ValueError("O argumento 'filters' tem de ter pelo menos um valor!")
+        
+        clause = ""
+        params: dict[str, Any] = {}
+
+        for index, filter in enumerate(filters):
+            if filter.value is not None:
+                lop = filter.logical_operator if index > 0 else ""
+                name = filter.name
+                value = filter.value
+                cop = filter.comparison_operator
+
+                clause = f"{clause} {lop} {name} {cop} :{name}"
+                if cop == "LIKE" and isinstance(value, str):
+                    value = f"%{value}%"
+
+                params[name] = value
+
+        return clause, params
 
     @abstractmethod
     def find_one(self) -> T | None:
