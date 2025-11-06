@@ -8,10 +8,6 @@ def main():
 if __name__ == "__main__":
     main()
     
-    print("Antes de apagar:\n", UserSchema.instance.find_many())
+    UserSchema.instance.create_one("alias de teste", "nome de teste")
 
-    user_to_delete = UserSchema.instance.find_one(id=2)
-    if user_to_delete is not None:
-        print(UserSchema.instance.delete(user_to_delete))
-
-    print("Depois de apagar:\n", UserSchema.instance.find_many())
+    print(UserSchema.instance.find_many())
