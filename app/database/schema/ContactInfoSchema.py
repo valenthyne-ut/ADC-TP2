@@ -4,6 +4,8 @@ from app.database.models.ContactInfo import ContactInfo
 from app.database.schema.BaseSchema import BaseSchema, Filter
 
 class ContactInfoSchema(BaseSchema["ContactInfo"]):
+    instance: "ContactInfoSchema"
+
     def __init__(self, connection: Connection):
         super().__init__(connection)
         if not self._table_exists("ContactInfo"):
@@ -16,6 +18,7 @@ class ContactInfoSchema(BaseSchema["ContactInfo"]):
                     address VARCHAR(255)
                 );
             """)
+        ContactInfoSchema.instance = self
 
     def find_one(self, id: int | None = None, email: str | None = None, phone_num: str | None = None, address: str | None = None) -> ContactInfo | None:
         if id is None and email is None and phone_num is None and address is None:

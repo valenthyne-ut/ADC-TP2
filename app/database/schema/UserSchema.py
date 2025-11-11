@@ -4,6 +4,8 @@ from app.database.models.User import User
 from app.database.schema.BaseSchema import BaseSchema, Filter
 
 class UserSchema(BaseSchema["User"]):
+    instance: "UserSchema"
+
     def __init__(self, connection: Connection):
         super().__init__(connection)
         if not self._table_exists("User"):
@@ -15,6 +17,7 @@ class UserSchema(BaseSchema["User"]):
                     full_name VARCHAR(255) NOT NULL
                 );
             """)
+        UserSchema.instance = self
 
     def find_one(self, id: int | None = None, alias: str | None = None, full_name: str | None = None) -> User | None:
         if id is None and alias is None and full_name is None:

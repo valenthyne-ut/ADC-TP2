@@ -4,6 +4,8 @@ from app.database.models.Client import Client
 from app.database.schema.BaseSchema import BaseSchema
 
 class ClientSchema(BaseSchema["Client"]):
+    instance: "ClientSchema"
+
     def __init__(self, connection: Connection):
         super().__init__(connection)
         if not self._table_exists("Client"):
@@ -22,6 +24,7 @@ class ClientSchema(BaseSchema["Client"]):
                     FOREIGN KEY(contact_id) REFERENCES ContactInfo(id)
                 )
             """)
+        ClientSchema.instance = self
 
     def find_one(self, user_id: int | None = None) -> Client | None:
         if user_id is None:
@@ -69,7 +72,7 @@ class ClientSchema(BaseSchema["Client"]):
             INSERT INTO Client(id, contact_id)
             VALUES(:id, :contact_id)
         """, {
-            "id": id,
+            "id": user_id,
             "contact_id": contact_id
         })
 
