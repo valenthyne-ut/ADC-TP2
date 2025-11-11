@@ -2,6 +2,7 @@ import sqlite3
 from app.database.schema.ClientSchema import ClientSchema
 from app.database.schema.ContactInfoSchema import ContactInfoSchema
 from app.database.schema.ServiceSchema import ServiceSchema
+from app.database.schema.TechnicianSchema import TechnicianSchema
 from app.database.schema.UserSchema import UserSchema
 
 connection = sqlite3.connect("database.sqlite", autocommit=True)
@@ -13,4 +14,5 @@ def initialize_database():
     ContactInfoSchema(connection)
     ClientSchema(connection)
     ServiceSchema(connection)
+    TechnicianSchema(connection)
     print("Base de dados iniciada.")
