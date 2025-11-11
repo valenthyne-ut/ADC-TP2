@@ -1,5 +1,4 @@
 from sqlite3 import Connection
-from app.database.schema import BaseSchema
 
 from app.database.models.ContactInfo import ContactInfo
 from app.database.schema.BaseSchema import BaseSchema, Filter

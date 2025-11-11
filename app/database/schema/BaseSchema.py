@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from sqlite3 import Connection
-from typing import Any, Generic, Literal, Self
+from typing import Any, Generic, Literal
 
 from app.database.models.Base import T
 
@@ -13,11 +13,8 @@ class Filter:
     logical_operator: Literal["AND", "OR", "NOT"] = "AND"
 
 class BaseSchema(ABC, Generic[T]):
-    instance: Self = field(init=False)
-
     def __init__(self, connection: Connection):
         self._connection = connection
-        BaseSchema.instance = self
 
     def _table_exists(self, table_name: str) -> bool:
         cursor = self._connection.cursor()

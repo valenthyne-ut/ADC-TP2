@@ -1,7 +1,7 @@
 from sqlite3 import Connection
-from app.database.schema.BaseSchema import BaseSchema
 
 from app.database.models.Client import Client
+from app.database.schema.BaseSchema import BaseSchema
 
 class ClientSchema(BaseSchema["Client"]):
     def __init__(self, connection: Connection):
