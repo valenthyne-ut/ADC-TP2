@@ -3,6 +3,8 @@
 import json
 import os
 
+from app.database.schema.UserSchema import UserSchema
+
 FICHEIRO = "app/data/users.json"
 
 def carregar_dados() -> dict:
@@ -57,20 +59,3 @@ def editar_perfil(nome, **novos_campos):
         print("Perfil atualizado com sucesso!")
     else:
         print("Perfil não encontrado.")
-
-if __name__ == "__main__":
-    print("=== SISTEMA DE PERFIS ===\n")
-
-
-    criar_perfil(
-        "Utilizadores",
-        Nome="Marino",
-        Morada="penha",
-        Conatcto="1254796",
-        Email="a@gmail.com"
-    )
-
-
-    print("\nResultado da procura:")
-    print(procurar_perfil(nome="Marino"))
-    print(procurar_perfil(nome="David"))
