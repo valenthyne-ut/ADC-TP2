@@ -3,6 +3,6 @@ Documentação ADC-TP2
 
 .. toctree::
    :maxdepth: 2
-   :caption: Contents:
+   :caption: Contéudos:
 
    app.database
