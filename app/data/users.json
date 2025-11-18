@@ -1,0 +1,66 @@
+{
+    "Utilizadores": [
+        {
+            "Nome": "Afonso M.",
+            "Morada": "Rua do Farol",
+            "Contacto": "987654321",
+            "Email": "afonsom@gmail.com"
+        },
+        {
+            "Nome": "David O.",
+            "Morada": "Rua da Penha",
+            "Contacto": "987658721",
+            "Email": "davido@gmail.com"
+        },
+        {
+            "Nome": "Orlando M.",
+            "Morada": "Rua das Pessoas",
+            "Contacto": "987654481",
+            "Email": "orlandom@gmail.com"
+        },
+        {
+            "Nome": "Zé N.",
+            "Morada": "Rua Nova",
+            "Contacto": "912312312",
+            "Email": "zenovo@gmail.com"
+        },
+        {
+            "Nome": "Zé N.",
+            "Morada": "Rua Nova",
+            "Contacto": "912312312",
+            "Email": "zenovo@gmail.com"
+        },
+        {
+            "Nome": "Zé N.",
+            "Morada": "Rua Nova",
+            "Contacto": "912312312",
+            "Email": "zenovo@gmail.com"
+        },
+        {
+            "Nome": "Marino",
+            "Morada": "penha",
+            "Contacto": "1254796",
+            "Email": "a@gmail.com"
+        },
+        {
+            "Nome": "Marino",
+            "Morada": "penha",
+            "Conatcto": "1254796",
+            "Email": "a@gmail.com"
+        }
+    ],
+    "Técnicos": [
+        {
+            "Nome": "Gustavo A.",
+            "Contacto": "987618721",
+            "Email": "gustavoa@gmail.com",
+            "Especialização:": "Limpeza e Manutenção de Piscinas"
+        },
+        {
+            "Nome": "Diogo V.",
+            "Contacto": "987358721",
+            "Email": "diogo@gmail.com",
+            "Especialização:": "Tratamento Quimico e Inspeção Técnica de Piscinas"
+        }
+    ]
+}
