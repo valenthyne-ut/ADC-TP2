@@ -1,8 +1,7 @@
 Cliente (ClientSchema)
 =======================================
 
-Representa os clientes na base de dados.
-
+Representa a tabela dos clientes na base de dados.
 
 .. automodule:: app.database.schema.ClientSchema
    :members:
