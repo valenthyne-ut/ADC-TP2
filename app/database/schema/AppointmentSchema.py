@@ -36,6 +36,24 @@ class AppointmentSchema(BaseSchema["Appointment"]):
 
     def find_one(self, id: int | None = None, date: date | None = None, client_id: int | None = None, 
                 technician_id: int | None = None, service_id: int | None = None) -> Appointment | None:
+        """
+        Pesquisa por uma marcação na base de dados utilizando os filtros fornecidos.
+        Pelo menos um dos filtros tem de ser fornecido.
+
+        :param id: O ID único da marcação. **Este filtro invalida todos os outros.** 
+        :param date: A data da marcação.
+        :param client_id: O ID único do cliente que realizou a marcação.
+        :param technician_id: O ID único do técnico que participará na marcação.
+        :param service_id: O ID único do serviço que irá ser realizado na marcação.
+        :type id: int
+        :type date: int
+        :type client_id: int
+        :type technician_id: int
+        :type service_id: int
+        :return: A marcação, se for encontrada.
+        :rtype: Appointment | None
+        :raises ValueError: Se nenhum filtro for fornecido.
+        """
         if id is None and date is None and client_id is None and technician_id is None and service_id is None:
             raise ValueError("Um parâmetro dos 'id', 'date', 'client_id', 'technician_id' ou 'service_id' tem de ser especificado!")
 
@@ -68,6 +86,22 @@ class AppointmentSchema(BaseSchema["Appointment"]):
 
     def find_many(self, limit: int = 2000, date: date | None = None, client_id: int | None = None, 
                 technician_id: int | None = None, service_id: int | None = None) -> list[Appointment]:
+        """
+        Pesquisa por várias marcações na base de dados utilizando os filtros fornecidos.
+
+        :param limit: O número máximo de marcações a devolver. 
+        :param date: A data da(s) marcação(ões).
+        :param client_id: O ID único do cliente que realizou a(s) marcação(ões).
+        :param technician_id: O ID único do técnico que participará na(s) marcação(ões).
+        :param service_id: O ID único do serviço que irá ser realizado na(s) marcação(ões).
+        :type limit: int = 2000
+        :type date: int
+        :type client_id: int
+        :type technician_id: int
+        :type service_id: int
+        :return: Uma lista de marcações, se alguma for encontrada.
+        :rtype: list[Appointment]
+        """
         cursor = self._connection.cursor()
 
         base_query = """
@@ -101,6 +135,26 @@ class AppointmentSchema(BaseSchema["Appointment"]):
 
     def create_one(self, client_id: int | None = None, technician_id: int | None = None, service_id: int | None = None, 
                     date: date | None = None, start_time: time | None = None, end_time: time | None = None) -> Appointment:
+        """
+        Insere uma nova marcação na base de dados e devolve a mesma.
+
+        :param client_id: O ID único do cliente que realizou a marcação.
+        :param technician_id: O ID único do técnico que participará na marcação.
+        :param service_id: O ID único do serviço que irá ser realizado na marcação.
+        :param date: A data da marcação.
+        :param start_time: A hora de início da marcação.
+        :param end_time: A hora de fim da marcação.
+        :type client_id: int
+        :type technician_id: int
+        :type service_id: int
+        :type date: int
+        :type start_time: time
+        :type end_time: time
+        :return: A marcação criada.
+        :rtype: Appointment
+        :raises ValueError: Se faltar qualquer informação necessária à criação de uma marcação.
+        :raises ValueError: Se correr mal a inserção da marcação na base de dados.
+        """
         if client_id is None or technician_id is None or service_id is None or date is None or start_time is None or end_time is None:
             raise ValueError("Todos os parâmetros 'client_id', 'technician_id', 'service_id', 'date', 'start_time' e 'end_time' têm de ser especificados!")
 
@@ -123,6 +177,14 @@ class AppointmentSchema(BaseSchema["Appointment"]):
         return Appointment(cursor.lastrowid, client_id, technician_id, service_id, date, start_time, end_time)
 
     def delete(self, instance: Appointment) -> bool:
+        """
+        Apaga uma marcação da base de dados.
+
+        :param instance: A instância da marcação.
+        :type instance: Appointment
+        :return: Um booleano que indica se foi ou não removida a marcação.
+        :rtype: bool
+        """
         cursor = self._connection.cursor()
         cursor.execute("""
             DELETE FROM Appointment

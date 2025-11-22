@@ -1,4 +1,4 @@
-app.database.schema.UserSchema module
+Utilizador (UserSchema)
 =====================================
 
 .. automodule:: app.database.schema.UserSchema

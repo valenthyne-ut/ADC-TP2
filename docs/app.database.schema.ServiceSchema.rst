@@ -1,4 +1,4 @@
-app.database.schema.ServiceSchema module
+Serviços (ServiceSchema)
 ========================================
 
 .. automodule:: app.database.schema.ServiceSchema

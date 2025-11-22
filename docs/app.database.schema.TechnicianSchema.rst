@@ -1,4 +1,4 @@
-app.database.schema.TechnicianSchema module
+Técnico (TechnicianSchema)
 ===========================================
 
 .. automodule:: app.database.schema.TechnicianSchema

@@ -1,5 +1,7 @@
-app.database.schema.AppointmentSchema module
+Marcação (AppointmentSchema)
 ============================================
+
+Representa as marcações na base de dados.
 
 .. automodule:: app.database.schema.AppointmentSchema
    :members:

@@ -1,4 +1,4 @@
-app.database.schema.ContactInfoSchema module
+Informações de Contacto (ContactInfoSchema)
 ============================================
 
 .. automodule:: app.database.schema.ContactInfoSchema

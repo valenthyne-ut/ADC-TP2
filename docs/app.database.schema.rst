@@ -1,8 +1,5 @@
-app.database.schema package
+Schemas
 ===========================
-
-Submodules
-----------
 
 .. toctree::
    :maxdepth: 4
@@ -14,11 +11,3 @@ Submodules
    app.database.schema.ServiceSchema
    app.database.schema.TechnicianSchema
    app.database.schema.UserSchema
-
-Module contents
----------------
-
-.. automodule:: app.database.schema
-   :members:
-   :show-inheritance:
-   :undoc-members:

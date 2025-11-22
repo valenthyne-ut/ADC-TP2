@@ -1,4 +1,4 @@
-Base de dados, Módulo app.database
+Base de dados
 ====================
 
 Este módulo contem o código necessário para inicializar e utilizar a base de dados
@@ -35,7 +35,7 @@ Os métodos CRUD de cada schema poderão ter *nuances* de como devem ser utiliza
 por favor consulte a documentação de cada um para não ocorrerem problemas inesperados.
 
 
-Submódulos
+Classes para o uso da BD
 --------------------
 
 .. toctree::
