@@ -20,6 +20,20 @@ class UserSchema(BaseSchema["User"]):
         UserSchema.instance = self
 
     def find_one(self, id: int | None = None, alias: str | None = None, full_name: str | None = None) -> User | None:
+        """
+        Pesquisa por um utilizador do sistema na base de dados. Pelo menos um dos
+        parâmetros tem de ser especificado.
+
+        :param id: O ID único do utilizador.
+        :param alias: O "nome de utilizador".
+        :param full_name: O nome completo do utilizador.
+        :type id: int
+        :type alias: str
+        :type full_name: str
+        :return: O utilizador do sistema, se um foi encontrado.
+        :rtype: User | None
+        :raises ValueError: Se nenhum dos parâmetros foi especificado.
+        """
         if id is None and alias is None and full_name is None:
             raise ValueError("Um parâmetro dos 'id', 'alias' ou 'name' tem de ser especificado!")
         
@@ -50,6 +64,18 @@ class UserSchema(BaseSchema["User"]):
 
 
     def find_many(self, limit: int = 2000, alias: str | None = None, name: str | None = None) -> list[User]:
+        """
+        Pesquisa por vários utilizadores do sistema.
+
+        :param limit: O número máximo de resultados a devolver.
+        :param alias: O "nome de utilizador".
+        :param name: O nome completo do utilizador.
+        :type limit: int = 2000
+        :type alias: str
+        :type name: str
+        :return: Uma lista de utilizadores do sistema, se algum foi encontrado.
+        :rtype: list[User]
+        """
         cursor = self._connection.cursor()
 
         base_query = """
@@ -80,6 +106,18 @@ class UserSchema(BaseSchema["User"]):
         return user_list
 
     def create_one(self, alias: str = "Unspecified", full_name: str = "Unspecified") -> User:
+        """
+        Insere um utilizador do sistema na base de dados e devolve o mesmo. Nenhum
+        dos parâmetros são obrigatórios, sendo por defeito ``"Unspecified"``.
+
+        :param alias: O "nome do utilizador".
+        :param full_name: O nome completo do utilizador.
+        :type alias: str
+        :type full_name: str
+        :return: O utilizador do sistema criado.
+        :rtype: User
+        :raises ValueError: Se algo correu mal ao inserir o utilizador do sistema na base de dados.
+        """
         cursor = self._connection.cursor()
         cursor.execute("""
             INSERT INTO User(alias, full_name)
@@ -95,6 +133,14 @@ class UserSchema(BaseSchema["User"]):
         return User(cursor.lastrowid, alias, full_name)
         
     def delete(self, instance: User) -> bool:
+        """
+        Apaga um utilizador do sistema da base de dados.
+
+        :param instance: Uma instância de um utilizador de sistema.
+        :type instance: User
+        :return: Um booleano que representa se foi ou não apagado o utilizador da base de dados.
+        :rtype: bool
+        """
         cursor = self._connection.cursor()
         cursor.execute("""
             DELETE FROM User
