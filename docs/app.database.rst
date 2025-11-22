@@ -36,7 +36,7 @@ por favor consulte a documentação de cada um para não ocorrerem problemas ine
 
 
 Classes para o uso da BD
---------------------
+-------------------------
 
 .. toctree::
    :maxdepth: 4

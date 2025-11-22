@@ -1,8 +1,5 @@
-app.database.models package
+Models
 ===========================
-
-Submodules
-----------
 
 .. toctree::
    :maxdepth: 4
@@ -14,11 +11,3 @@ Submodules
    app.database.models.Service
    app.database.models.Technician
    app.database.models.User
-
-Module contents
----------------
-
-.. automodule:: app.database.models
-   :members:
-   :show-inheritance:
-   :undoc-members:
