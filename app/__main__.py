@@ -1,9 +1,7 @@
-# from datetime import date, time
 from app.database import initialize_database
-# from app.database.schema.AppointmentSchema import AppointmentSchema
 from app.database.schema.ClientSchema import ClientSchema
 from app.database.schema.ContactInfoSchema import ContactInfoSchema
-# from app.database.schema.ServiceSchema import ServiceSchema
+from app.database.schema.ServiceSchema import ServiceSchema
 from app.database.schema.TechnicianSchema import TechnicianSchema
 from app.database.schema.UserSchema import UserSchema
 
@@ -31,6 +29,14 @@ def main():
                 db_contact_info.id
             )
 
+    for service in dados.get("Serviços"):
+        if service is not None:
+            ServiceSchema.instance.create_one(
+                name=service["Nome"],
+                price=service["Preço"],
+                duration_mins=service["Duração"]
+            )
+
     for technician in dados.get("Técnicos"):
         if technician is not None:
             db_user = UserSchema.instance.create_one(
@@ -44,10 +50,20 @@ def main():
                 phone_num=technician["Contacto"]
             )
 
-            TechnicianSchema.instance.create_one(
-                db_user.id,
-                db_contact_info.id
+            specialization = technician["Especialização"]
+
+            db_technician_specialization = ServiceSchema.instance.find_one(
+                name=specialization
             )
+
+            if db_technician_specialization is None:
+                raise ValueError(f"Não foi encontrada '{specialization}' a especialização para o técnico '{db_user.full_name}'!")
+            else:
+                TechnicianSchema.instance.create_one(
+                    user_id=db_user.id,
+                    contact_id=db_contact_info.id,
+                    specialization_id=db_technician_specialization.id
+                )
     
 
 if __name__ == "__main__":

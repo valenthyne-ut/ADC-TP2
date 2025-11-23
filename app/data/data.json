@@ -37,14 +37,50 @@
             "Morada": "Rua Velha",
             "Contacto": "987618721",
             "Email": "gustavoa@gmail.com",
-            "Especialização:": "Limpeza de Piscinas"
+            "Especialização": "Limpeza de Piscinas"
         },
         {
             "Nome": "Diogo V.",
             "Morada": "Estrada de Estombar",
             "Contacto": "987358721",
             "Email": "diogo@gmail.com",
-            "Especialização:": "Tratamento Quimico"
+            "Especialização": "Tratamento Quimico"
+        },
+        {
+            "Nome": "André P.",
+            "Morada": "Sítio do Monte",
+            "Contacto": "8998776234",
+            "Email": "andre.p@gmail.com",
+            "Especialização": "Manutenção da Piscina"
+        },
+        {
+            "Nome": "Vitor .",
+            "Morada": "Estrada de Estombar",
+            "Contacto": "776434981",
+            "Email": "vitor.m@gmail.com",
+            "Especialização": "Inspeção Técnica de Piscina"
+        }
+    ],
+    "Serviços": [
+        {
+            "Nome": "Limpeza de Piscinas",
+            "Preço": 500,
+            "Duração": 180
+        },
+        {
+            "Nome": "Tratamento Quimico",
+            "Preço": 100,
+            "Duração": 15
+        },
+        {
+            "Nome": "Manutenção da Piscina",
+            "Preço": 600,
+            "Duração": 120
+        },
+        {
+            "Nome": "Inspeção Técnica de Piscina",
+            "Preço": 1000,
+            "Duração": 180
         }
     ]
 }

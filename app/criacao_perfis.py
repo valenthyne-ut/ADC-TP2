@@ -4,7 +4,7 @@ import json
 import os
 from typing import Any
 
-FICHEIRO = "app/data/users.json"
+FICHEIRO = "app/data/data.json"
 
 def carregar_dados() -> dict[str, Any]:
     """
