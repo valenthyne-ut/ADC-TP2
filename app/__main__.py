@@ -1,4 +1,12 @@
 """
+Este módulo carrega dados de pré-definição de um ficheiro localizado
+em `data/data.json` a uma base de dados SQLite, e define meios para
+que estes possam ser alterados.
+
+.. warning::
+    Este código **NÃO DEVERÁ** ser utilizado em produção sem validações
+    e tratamento de exceções.
+
 :Autores: Marino Nechifor e Valentim U. T.
 """
 from app.database import initialize_database
@@ -11,6 +19,13 @@ from app.database.schema.UserSchema import UserSchema
 from app.criacao_perfis import carregar_dados
 
 def main():
+    """
+    Esta função inicia a base de dados, carrega os dados base para a mesma
+    e define um menu de utilização simples da base de dados.
+
+    :return: Nada.
+    :rtype: None
+    """
     initialize_database()
 
     dados = carregar_dados()
