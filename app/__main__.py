@@ -109,6 +109,34 @@ def pick_crud_op() -> Literal["READ", "CREATE", "DELETE"]:
 
     raise NotImplementedError("Estado impossível!")
 
+def pick_table() -> Literal["CONTACT_INFO", "SERVICE", "CLIENT", "TECHNICIAN", "APPOINTMENT"]:
+    """
+    Função para escolher a tabela sobre qual efetuar uma operação.
+
+    :return: Um de "CONTACT_INFO", "SERVICE", "CLIENT", "TECHNICIAN", "APPOINTMENT"
+    :rtype: Literal["CONTACT_INFO", "SERVICE", "CLIENT", "TECHNICIAN", "APPOINTMENT"]
+    """
+    response = input("\n".join([
+        "\nEscolha uma tabela das seguintes:",
+        "1 - Informação de contacto",
+        "2 - Serviço",
+        "3 - Cliente",
+        "4 - Técnico",
+        "5 - Marcação",
+        "\n> "
+    ]))
+
+    if response == "1": return "CONTACT_INFO"
+    elif response == "2": return "SERVICE"
+    elif response == "3": return "CLIENT"
+    elif response == "4": return "TECHNICIAN"
+    elif response == "5": return "APPOINTMENT"
+    else:
+        print("Opção inválida.")
+        pick_crud_op()
+
+    raise NotImplementedError("Estado impossível!")
+
 def main():
     """
     Esta função inicia a base de dados, carrega os dados base para a mesma
@@ -132,6 +160,8 @@ def main():
     print()
 
     crud_op = pick_crud_op()
+    print()
+    table = pick_table()
 
 if __name__ == "__main__":
     main()
