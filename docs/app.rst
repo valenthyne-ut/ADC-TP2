@@ -1,18 +1,9 @@
-app package
+Aplicação
 ===========
-
-Subpackages
------------
 
 .. toctree::
    :maxdepth: 4
 
+   app.main
    app.database
-
-Module contents
----------------
-
-.. automodule:: app
-   :members:
-   :show-inheritance:
-   :undoc-members:
+   app.criacao_perfis

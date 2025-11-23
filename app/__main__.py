@@ -1,3 +1,6 @@
+"""
+:Autores: Marino Nechifor e Valentim U. T.
+"""
 from app.database import initialize_database
 from app.database.schema.ClientSchema import ClientSchema
 from app.database.schema.ContactInfoSchema import ContactInfoSchema
