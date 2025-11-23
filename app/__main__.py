@@ -18,6 +18,72 @@ from app.database.schema.UserSchema import UserSchema
 
 from app.criacao_perfis import carregar_dados
 
+def load_default_data() -> None:
+    """
+    Uma função que carrega os dados base do ficheiro
+    `app/data/data.json`.
+
+    :return: Nada.
+    :rtype: None
+    :raises ValueError: Se não for encontrada especialização de um técnico.
+    """
+    dados = carregar_dados()
+
+    for user in dados.get("Utilizadores"):
+        if user is not None:
+            db_user = UserSchema.instance.create_one(
+                alias=user["Email"],
+                full_name=user["Nome"]
+            )
+    
+            db_contact_info = ContactInfoSchema.instance.create_one(
+                email=db_user.alias,
+                address=user["Morada"],
+                phone_num=user["Contacto"]
+            )
+    
+            ClientSchema.instance.create_one(
+                db_user.id,
+                db_contact_info.id
+            )
+    
+    for service in dados.get("Serviços"):
+        if service is not None:
+            ServiceSchema.instance.create_one(
+                name=service["Nome"],
+                price=service["Preço"],
+                duration_mins=service["Duração"]
+            )
+    
+    for technician in dados.get("Técnicos"):
+        if technician is not None:
+            db_user = UserSchema.instance.create_one(
+                alias=technician["Email"],
+                full_name=technician["Nome"]
+            )
+    
+            db_contact_info = ContactInfoSchema.instance.create_one(
+                email=db_user.alias,
+                address=technician["Morada"],
+                phone_num=technician["Contacto"]
+            )
+    
+            specialization = technician["Especialização"]
+    
+            db_technician_specialization = ServiceSchema.instance.find_one(
+                name=specialization
+            )
+    
+            if db_technician_specialization is None:
+                raise ValueError(f"Não foi encontrada '{specialization}' a especialização para o técnico '{db_user.full_name}'!")
+            else:
+                TechnicianSchema.instance.create_one(
+                    user_id=db_user.id,
+                    contact_id=db_contact_info.id,
+                    specialization_id=db_technician_specialization.id
+                )
+
+
 def main():
     """
     Esta função inicia a base de dados, carrega os dados base para a mesma
@@ -27,61 +93,8 @@ def main():
     :rtype: None
     """
     initialize_database()
-
-    dados = carregar_dados()
-    for user in dados.get("Utilizadores"):
-        if user is not None:
-            db_user = UserSchema.instance.create_one(
-                alias=user["Email"],
-                full_name=user["Nome"]
-            )
-
-            db_contact_info = ContactInfoSchema.instance.create_one(
-                email=db_user.alias,
-                address=user["Morada"],
-                phone_num=user["Contacto"]
-            )
-
-            ClientSchema.instance.create_one(
-                db_user.id,
-                db_contact_info.id
-            )
-
-    for service in dados.get("Serviços"):
-        if service is not None:
-            ServiceSchema.instance.create_one(
-                name=service["Nome"],
-                price=service["Preço"],
-                duration_mins=service["Duração"]
-            )
-
-    for technician in dados.get("Técnicos"):
-        if technician is not None:
-            db_user = UserSchema.instance.create_one(
-                alias=technician["Email"],
-                full_name=technician["Nome"]
-            )
-
-            db_contact_info = ContactInfoSchema.instance.create_one(
-                email=db_user.alias,
-                address=technician["Morada"],
-                phone_num=technician["Contacto"]
-            )
-
-            specialization = technician["Especialização"]
-
-            db_technician_specialization = ServiceSchema.instance.find_one(
-                name=specialization
-            )
-
-            if db_technician_specialization is None:
-                raise ValueError(f"Não foi encontrada '{specialization}' a especialização para o técnico '{db_user.full_name}'!")
-            else:
-                TechnicianSchema.instance.create_one(
-                    user_id=db_user.id,
-                    contact_id=db_contact_info.id,
-                    specialization_id=db_technician_specialization.id
-                )
+    load_default_data()
+    
     
 
 if __name__ == "__main__":
