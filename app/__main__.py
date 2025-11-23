@@ -93,9 +93,20 @@ def main():
     :rtype: None
     """
     initialize_database()
-    load_default_data()
     
-    
+    response = input("\nDeseja carregar dados de exemplo? S/n\n> ").lower()
+        
+    if response in ("s", "y", "sim", "yes"):
+        load_default_data()
+        print("Dados de exemplo foram carregados.")
+    elif response in ("n", "não", "nao", "no"):
+        print("Dados de exemplo não serão carregados.")
+    else:
+        print("Resposta inválida.")
+        exit(-1)
+    print()
+
+
 
 if __name__ == "__main__":
     main()
