@@ -7,15 +7,15 @@ from app.database.models.Base import Base
 class Appointment(Base["Appointment"]):
     client_id: int
     """
-    O ID do cliente que realizou a marcação.
+    O ID do cliente (:class:`app.database.models.Client`) que realizou a marcação.
     """
     technician_id: int
     """
-    O ID do técnico que acompanhará/acompanhou a marcação.
+    O ID do técnico (:class:`app.database.models.Technician`) que acompanhará/acompanhou a marcação.
     """
     service_id: int
     """
-    O ID do serviço realizado na marcação.
+    O ID do serviço (:class:`app.database.models.Service`) realizado na marcação.
     """
     date: date
     """
