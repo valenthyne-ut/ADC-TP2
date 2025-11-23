@@ -2,13 +2,11 @@
 
 import json
 import os
-
-from app.database.schema.UserSchema import UserSchema
+from typing import Any
 
 FICHEIRO = "app/data/users.json"
 
-w
-def carregar_dados() -> dict:
+def carregar_dados() -> dict[str, Any]:
     """
     Carrega os dados do ficheiro JSON
     Lê o ficheiro users.json e devolve o seu conteudo com um dicionario
@@ -23,7 +21,7 @@ def carregar_dados() -> dict:
     
 
 
-def guardar_dados(dados):
+def guardar_dados(dados: Any):
     """
     Guarda os perfies no ficheiro JSON e substitui o conteudo anterior pelo dicionario fornecido
     :param dict dados: Estrutura contem os perfis que vao ser guardados
@@ -33,7 +31,7 @@ def guardar_dados(dados):
 
 
 
-def criar_perfil(tipo, **campos):
+def criar_perfil(tipo: str, **campos: dict[str, Any]):
     """
     Cria um novo perfil e adiciona ao tipo correspondente('Utilizadores' ou 'Técnicos')
     :param str tipo : Categoria do perfil
@@ -52,7 +50,7 @@ def criar_perfil(tipo, **campos):
     print(f"Perfil criado com sucesso em '{tipo}'!")
 
 
-def procurar_perfil(nome=None, email=None):
+def procurar_perfil(nome: str | None = None, email: str | None = None) -> list[tuple[str, Any]]:
     """
     Procura os perfies pelo nomme ou pelo email
     :param str email: Email exato do perfil
@@ -61,7 +59,7 @@ def procurar_perfil(nome=None, email=None):
     :rtype: list
     """
     dados = carregar_dados()
-    resultados = []
+    resultados: list[tuple[str, Any]] = []
 
     for tipo in ["Utilizadores", "Técnicos"]:
         for perfil in dados.get(tipo, []):
@@ -72,12 +70,12 @@ def procurar_perfil(nome=None, email=None):
 
     return resultados
 
-def editar_perfil(nome, **novos_campos):
+def editar_perfil(nome: str, **novos_campos: dict[str, Any]):
     """ 
     Edita um perfil existente , atualizado apenas os campo fornecidos 
     :param str nome: Nome do perfil a editar 
-    :param novos campos : Campos a atualizar
-    :return :None
+    :param novos_campos : Campos a atualizar
+    :return: None
     """
     dados = carregar_dados()
     alterado = False
@@ -86,8 +84,7 @@ def editar_perfil(nome, **novos_campos):
         for perfil in dados.get(tipo, []):
             if nome.lower() == perfil.get("Nome", "").lower():
                 for chave, valor in novos_campos.items():
-                    if valor is not None:
-                        perfil[chave] = valor
+                    perfil[chave] = valor
                 alterado = True
 
     if alterado:
