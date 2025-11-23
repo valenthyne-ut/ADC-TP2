@@ -25,42 +25,26 @@
             "Email": "zenovo@gmail.com"
         },
         {
-            "Nome": "Zé N.",
-            "Morada": "Rua Nova",
-            "Contacto": "912312312",
-            "Email": "zenovo@gmail.com"
-        },
-        {
-            "Nome": "Zé N.",
-            "Morada": "Rua Nova",
-            "Contacto": "912312312",
-            "Email": "zenovo@gmail.com"
-        },
-        {
             "Nome": "Marino",
             "Morada": "penha",
             "Contacto": "1254796",
-            "Email": "a@gmail.com"
-        },
-        {
-            "Nome": "Marino",
-            "Morada": "penha",
-            "Conatcto": "1254796",
             "Email": "a@gmail.com"
         }
     ],
     "Técnicos": [
         {
             "Nome": "Gustavo A.",
+            "Morada": "Rua Velha",
             "Contacto": "987618721",
             "Email": "gustavoa@gmail.com",
-            "Especialização:": "Limpeza e Manutenção de Piscinas"
+            "Especialização:": "Limpeza de Piscinas"
         },
         {
             "Nome": "Diogo V.",
+            "Morada": "Estrada de Estombar",
             "Contacto": "987358721",
             "Email": "diogo@gmail.com",
-            "Especialização:": "Tratamento Quimico e Inspeção Técnica de Piscinas"
+            "Especialização:": "Tratamento Quimico"
         }
     ]
 }
