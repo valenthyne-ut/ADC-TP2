@@ -21,6 +21,22 @@ class ContactInfoSchema(BaseSchema["ContactInfo"]):
         ContactInfoSchema.instance = self
 
     def find_one(self, id: int | None = None, email: str | None = None, phone_num: str | None = None, address: str | None = None) -> ContactInfo | None:
+        """
+        Pesquisa por uma informação de contacto na base de dados.
+        Pelo menos um dos filtros tem de ser fornecido.
+
+        :param id: O ID único da informação de contacto.
+        :param email: O email contido na informação de contacto.
+        :param phone_num: O número de telemóvel/telefone contido na informação de contacto.
+        :param address: O endereço contido na informação de contacto.
+        :type id: int
+        :type email: str
+        :type phone_num: str
+        :type address: str
+        :return: A informação de contacto, se for encontrada.
+        :rtype: ContactInfo | None
+        :raises ValueError: Se nenhum filtro for fornecido.
+        """        
         if id is None and email is None and phone_num is None and address is None:
             raise ValueError("Um parâmetro dos 'id', 'email', 'phone_num' ou 'address' tem de ser especificado!")
 
@@ -51,6 +67,20 @@ class ContactInfoSchema(BaseSchema["ContactInfo"]):
         return ContactInfo(result[0], result[1], result[2], result[3])
 
     def find_many(self, limit: int = 2000, email: str | None = None, phone_num: str | None = None, address: str | None = None) -> list[ContactInfo]:
+        """
+        Pesquisa por varías informações de contacto na base de dados.
+
+        :param limit: O número máximo de resultados a devolver.
+        :param email: O email contido na(s) informação(ões) de contacto.
+        :param phone_num: O número de telemóvel/telefone contido na(s) informação(ões) de contacto.
+        :param address: O endereço contido na(s) informação(ões) de contacto.
+        :type limit: int = 2000
+        :type email: str
+        :type phone_num: str
+        :type address: str
+        :return: Uma lista que contem as informações de contacto, se alguma for encontrada.
+        :rtype: list[ContactInfo]
+        """  
         cursor = self._connection.cursor()
 
         base_query = """
@@ -82,6 +112,20 @@ class ContactInfoSchema(BaseSchema["ContactInfo"]):
         return contactinfo_list
 
     def create_one(self, email: str = "Unspecified", phone_num: str = "+00000000000000", address: str = "Unspecified") -> ContactInfo:
+        """
+        Insere uma nova informação de contacto na base de dados. Todos os valores são 
+        opcionais, sendo pré-definidos como ``"Unspecified"``, ou ``"+00000000000000"``.
+
+        :param email: O email da nova informação de contactos.
+        :param phone_num: O número de telemóvel/telefone da nova informação de contactos.
+        :param address: O endereço da nova informação de contactos.
+        :type email: str
+        :type phone_num: str
+        :type address: str
+        :return: A nova informação de contactos criada.
+        :rtype: ContactInfo
+        :raises ValueError: Se correu algo mal a inserir a informação de contacto na base de dados.
+        """
         cursor = self._connection.cursor()
         cursor.execute("""
             INSERT INTO ContactInfo(email, phone_num, address)
@@ -98,6 +142,14 @@ class ContactInfoSchema(BaseSchema["ContactInfo"]):
         return ContactInfo(cursor.lastrowid, email, phone_num, address)
     
     def delete(self, instance: ContactInfo) -> bool:
+        """
+        Apaga uma informação de contactos da base de dados.
+
+        :param instance: Uma instância da informação de contacto.
+        :type instance: ContactInfo
+        :return: Um booleano que representa se foi ou não apagada a informação de contacto.
+        :rtype: bool
+        """
         cursor = self._connection.cursor()
         cursor.execute("""
             DELETE FROM ContactInfo

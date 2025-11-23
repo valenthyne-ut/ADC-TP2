@@ -27,6 +27,16 @@ class ClientSchema(BaseSchema["Client"]):
         ClientSchema.instance = self
 
     def find_one(self, user_id: int | None = None) -> Client | None:
+        """
+        Pesquisa por um cliente na base de dados utilizando os filtros fornecidos.
+        O user_id tem de ser fornecido.
+
+        :param user_id: O ID único do utilizador.
+        :type user_id: int
+        :return: O cliente, se for encontrado.
+        :rtype: Client | None
+        :raises ValueError: Se o user_id não for fornecido.
+        """        
         if user_id is None:
             raise ValueError("Parâmetro 'user_id' tem de ser especificado!")
 
@@ -44,6 +54,14 @@ class ClientSchema(BaseSchema["Client"]):
         return Client(result[0], result[1])
 
     def find_many(self, limit: int = 2000) -> list[Client]:
+        """
+        Pesquisa por vários clientes na base de dados.
+
+        :param limit: O número máximo de clientes a devolver.
+        :type limit: int = 2000
+        :return: Uma lista de clientes, se algum for encontrado.
+        :rtype: list[Client]
+        """
         cursor = self._connection.cursor()
 
         query = """
@@ -64,6 +82,18 @@ class ClientSchema(BaseSchema["Client"]):
         return client_list
 
     def create_one(self, user_id: int | None = None, contact_id: int | None = None) -> Client:
+        """
+        Insere um novo cliente na base de dados e devolve o mesmo.
+
+        :param user_id: O ID único do utilizador.
+        :param contact_id: O ID único da informação de contacto do cliente.
+        :type user_id: int
+        :type contact_id: int
+        :return: O cliente criado.
+        :rtype: Client
+        :raises ValueError: Se faltar qualquer informação necessária à criação de um cliente.
+        :raises ValueError: Se correr mal a inserção do cliente na base de dados.
+        """
         if user_id is None or contact_id is None:
             raise ValueError("Ambos os parâmetros 'user_id' e 'contact_id' têm de ser especificados!")
 
@@ -82,6 +112,14 @@ class ClientSchema(BaseSchema["Client"]):
         return Client(cursor.lastrowid, contact_id)
 
     def delete(self, instance: Client) -> bool:
+        """
+        Apaga um cliente da base de dados.
+
+        :param instance: A instância do cliente.
+        :type instance: Client
+        :return: Um booleano que indica se foi ou não apagado o cliente.
+        :rtype: bool
+        """
         cursor = self._connection.cursor()
         cursor.execute("""
             DELETE FROM Client

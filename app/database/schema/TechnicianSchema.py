@@ -32,6 +32,16 @@ class TechnicianSchema(BaseSchema["Technician"]):
         TechnicianSchema.instance = self
 
     def find_one(self, user_id: int | None = None) -> Technician | None:
+        """
+        Pesquisa por um técnico na base de dados utilizando os filtros fornecidos.
+        O user_id tem de ser fornecido.
+
+        :param user_id: O ID único do utilizador.
+        :type user_id: int
+        :return: O técnico, se for encontrado.
+        :rtype: Technician | None
+        :raises ValueError: Se o user_id não for fornecido.
+        """ 
         if user_id is None:
             raise ValueError("Parâmetro 'user_id' tem de ser especificado!")
 
@@ -49,6 +59,14 @@ class TechnicianSchema(BaseSchema["Technician"]):
         return Technician(result[0], result[1], result[2])
 
     def find_many(self, limit: int = 2000) -> list[Technician]:
+        """
+        Pesquisa por vários técnicos na base de dados.
+
+        :param limit: O número máximo de técnicos a devolver.
+        :type limit: int = 2000
+        :return: Uma lista de técnicos, se algum for encontrado.
+        :rtype: list[Technician]
+        """
         cursor = self._connection.cursor()
 
         query = """
@@ -69,6 +87,20 @@ class TechnicianSchema(BaseSchema["Technician"]):
         return technician_list
 
     def create_one(self, user_id: int | None = None, contact_id: int | None = None, specialization_id: int | None = None) -> Technician:
+        """
+        Insere um novo técnico na base de dados e devolve o mesmo.
+
+        :param user_id: O ID único do utilizador.
+        :param contact_id: O ID único da informação de contacto do técnico.
+        :param specialization_id: O ID único da especialização do técnico.
+        :type user_id: int
+        :type contact_id: int
+        :type specialization_id: int
+        :return: O técnico criado.
+        :rtype: Technician
+        :raises ValueError: Se faltar qualquer informação necessária à criação de um técnico.
+        :raises ValueError: Se correr mal a inserção do técnico na base de dados.
+        """
         if user_id is None or contact_id is None or specialization_id is None:
             raise ValueError("Todos os parâmetros 'user_id', 'contact_id' e 'specialization_id' têm de ser especificados!")
 
@@ -88,6 +120,14 @@ class TechnicianSchema(BaseSchema["Technician"]):
         return Technician(cursor.lastrowid, contact_id, specialization_id)
 
     def delete(self, instance: Technician) -> bool:
+        """
+        Apaga um técnico da base de dados.
+
+        :param instance: A instância do técnico.
+        :type instance: Technician
+        :return: Um booleano que indica se foi ou não apagado o técnico.
+        :rtype: bool
+        """
         cursor = self._connection.cursor()
         cursor.execute("""
             DELETE FROM Technician
