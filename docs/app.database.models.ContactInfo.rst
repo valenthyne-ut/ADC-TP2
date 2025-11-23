@@ -1,4 +1,4 @@
-app.database.models.ContactInfo module
+Informação de Contacto
 ======================================
 
 Representa um conjunto de dados de uma informação de contactos.

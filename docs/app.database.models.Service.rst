@@ -1,5 +1,7 @@
-app.database.models.Service module
+Serviço
 ==================================
+
+Representa um conjunto de dados de um serviço.
 
 .. automodule:: app.database.models.Service
    :members:
