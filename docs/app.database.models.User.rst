@@ -1,5 +1,7 @@
-app.database.models.User module
+Utilizador
 ===============================
+
+Representa um conjunto de dados de um utilizador.
 
 .. automodule:: app.database.models.User
    :members:
