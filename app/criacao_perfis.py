@@ -10,9 +10,10 @@ def carregar_dados() -> dict[str, Any]:
     """
     Carrega os dados do ficheiro JSON
     Lê o ficheiro users.json e devolve o seu conteudo com um dicionario
-    :raises FileNotFoundError: Se o ficheiro (data/users.json) nao existir 
-    :return : Dicionario contem as listas(Utilizadores e Tecnicos)
+
+    :return: Dicionario contem as listas(Utilizadores e Tecnicos)
     :rtype: dict
+    :raises FileNotFoundError: Se o ficheiro (data/users.json) nao existir 
     """
     if not os.path.exists(FICHEIRO):
         raise FileNotFoundError("O ficheiro data/users.json não existe.")
@@ -24,8 +25,11 @@ def carregar_dados() -> dict[str, Any]:
 def guardar_dados(dados: Any):
     """
     Guarda os perfies no ficheiro JSON e substitui o conteudo anterior pelo dicionario fornecido
-    :param dict dados: Estrutura contem os perfis que vao ser guardados
-    :return: None 
+
+    :param dados: Estrutura contem os perfis que vao ser guardados
+    :type dados: Any
+    :return: Nada. 
+    :rtype: None
     """
     with open(FICHEIRO, "w", encoding="utf-8") as f: json.dump(dados, f, indent=4, ensure_ascii=False)
 
@@ -34,10 +38,14 @@ def guardar_dados(dados: Any):
 def criar_perfil(tipo: str, **campos: dict[str, Any]):
     """
     Cria um novo perfil e adiciona ao tipo correspondente('Utilizadores' ou 'Técnicos')
-    :param str tipo : Categoria do perfil
+
+    :param tipo: Categoria do perfil
     :param campos: Campos do perfil(Nome,Email,etc...)
+    :type tipo: str
+    :type campos: dict[str, Any]
     :raises ValueError: Se o tipo for invalido
-    :return: None
+    :return: Nada.
+    :rtype: None
     """
     dados = carregar_dados()
 
@@ -53,10 +61,13 @@ def criar_perfil(tipo: str, **campos: dict[str, Any]):
 def procurar_perfil(nome: str | None = None, email: str | None = None) -> list[tuple[str, Any]]:
     """
     Procura os perfies pelo nomme ou pelo email
-    :param str email: Email exato do perfil
-    :param str nome: Nome a procurar
-    :return : Lista de tuplos(tipo, perfil) correspondentes aos resultados
-    :rtype: list
+
+    :param nome: Nome a procurar
+    :param email: Email exato do perfil
+    :type nome: str | None
+    :type email: str | None
+    :return: Lista de tuplos(tipo, perfil) correspondentes aos resultados
+    :rtype: list[tuple[str, Any]]
     """
     dados = carregar_dados()
     resultados: list[tuple[str, Any]] = []
@@ -73,9 +84,13 @@ def procurar_perfil(nome: str | None = None, email: str | None = None) -> list[t
 def editar_perfil(nome: str, **novos_campos: dict[str, Any]):
     """ 
     Edita um perfil existente , atualizado apenas os campo fornecidos 
-    :param str nome: Nome do perfil a editar 
-    :param novos_campos : Campos a atualizar
-    :return: None
+
+    :param nome: Nome do perfil a editar 
+    :param novos_campos: Campos a atualizar
+    :type nome: str
+    :type novos_campos: dict[str, Any]
+    :return: Nada.
+    :rtype: None
     """
     dados = carregar_dados()
     alterado = False
