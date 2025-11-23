@@ -1,5 +1,7 @@
-app.database.models.Appointment module
+Marcação
 ======================================
+
+Representa um conjunto de dados de uma marcação.
 
 .. automodule:: app.database.models.Appointment
    :members:
