@@ -1,5 +1,7 @@
-app.database.models.Technician module
+Técnico
 =====================================
+
+Representa um conjunto de dados de um técnico.
 
 .. automodule:: app.database.models.Technician
    :members:
