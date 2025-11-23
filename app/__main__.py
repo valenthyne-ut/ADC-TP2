@@ -9,8 +9,9 @@ que estes possam ser alterados.
 
 :Autores: Marino Nechifor e Valentim U. T.
 """
-from typing import Literal
+from typing import Any, Literal
 from app.database import initialize_database
+from app.database.schema.AppointmentSchema import AppointmentSchema
 from app.database.schema.ClientSchema import ClientSchema
 from app.database.schema.ContactInfoSchema import ContactInfoSchema
 from app.database.schema.ServiceSchema import ServiceSchema
@@ -94,6 +95,67 @@ def main():
     """
     initialize_database()
     
+    callable_dict: dict[str, dict[str, dict[Literal["args", "call"], Any]]] = {
+        "READ": {
+            "CONTACT_INFO": {
+                "args": ("email", "phone_num", "address"),
+                "call": ContactInfoSchema.instance.find_many
+            },
+            "SERVICE": {
+                "args": ("name"),
+                "call": ServiceSchema.instance.find_one
+            },
+            "CLIENT": {
+                "args": (),
+                "call": ClientSchema.instance.find_many
+            },
+            "TECHNICIAN": {
+                "args": (),
+                "call": TechnicianSchema.instance.find_many
+            },
+            "APPOINTMENT": {
+                "args": ("date"),
+                "call": AppointmentSchema.instance.find_many
+            }
+        },
+        "CREATE": {
+            "SERVICE": {
+                "args": ("name", "price", "duration_mins"),
+                "call": "TO-DO"
+            },
+            "CLIENT": {
+                "args": ("email", "full_name", "phone_num", "address"),
+                "call": "TO-DO"
+            },
+            "TECHNICIAN": {
+                "args": ("email", "full_name", "phone_num", "address", "specialization_id"),
+                "call": "TO-DO"
+            },
+            "APPOINTMENT": {
+                "args": ("client_id", "technician_id", "service_id", "date", "start_time", "end_time"),
+                "call": "TO-DO"
+            }
+        },
+        "DELETE": {
+            "SERVICE": {
+                "args": ("id"),
+                "call": "TO-DO"
+            },
+            "CLIENT": {
+                "args": ("id"),
+                "call": "TO-DO"
+            },
+            "TECHNICIAN": {
+                "args": (),
+                "call": "TO-DO"
+            },
+            "APPOINTMENT": {
+                "args": ("date"),
+                "call": "TO-DO"
+            }
+        }
+    }
+
     response = input("\nDeseja carregar dados de exemplo? S/n\n> ").lower()
         
     if response in ("s", "y", "sim", "yes"):
@@ -107,11 +169,11 @@ def main():
     print()
 
     while True:
-        raw_input = input("\nInsira um comando (H para ajuda.)\n> ")
+        raw_input = input("\nInsira um comando (H para ajuda, Q para sair.)\n> ")
         if raw_input == "H":
             print("\n".join([
                 "Comandos disponíveis: READ, CREATE, DELETE",
-                "Tabelas disponíveis: SERVICE, CLIENT, TECHNICIAN, APPOINTMENT",
+                "Tabelas disponíveis: CONTACT_INFO, SERVICE, CLIENT, TECHNICIAN, APPOINTMENT",
                 "Qualquer texto inserido a seguir da tabela é tratado como argumento de filtro.",
                 "O caractér '_' é substituído por um espaço nos argumentos."
                 "Exemplos de estrutura de um comando completo:",
@@ -120,6 +182,9 @@ def main():
                 "CREATE SERVICE Limpeza_de_piscina 200 120 -- Cria um serviço com o nome 'Limpeza de piscina' com um custo de 200€ e uma duração de 120 minutos."
             ]))
             continue
+        if raw_input == "Q":
+            print("Adeus!")
+            break
 
         try:
             command, table, *arguments = raw_input.split(" ")
@@ -127,9 +192,17 @@ def main():
             print("Input inválido.")
             continue
 
-        print(command, table, len(arguments))
-        print(arguments)
-             
+        if command not in callable_dict.keys() or table not in callable_dict[command].keys():
+            print("Input inválido.")
+            continue
+            
+        call_data = callable_dict[command][table]
+        if command == "READ" and len(arguments) == 0:
+            results = call_data["call"]()
+            for i in range(0, len(results)):
+                print(f"\nResultado {i + 1}")
+                print(str(results[i]))
+            
 
 if __name__ == "__main__":
     main()
