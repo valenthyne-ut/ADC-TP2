@@ -9,6 +9,7 @@ que estes possam ser alterados.
 
 :Autores: Marino Nechifor e Valentim U. T.
 """
+from typing import Literal
 from app.database import initialize_database
 from app.database.schema.ClientSchema import ClientSchema
 from app.database.schema.ContactInfoSchema import ContactInfoSchema
@@ -84,6 +85,30 @@ def load_default_data() -> None:
                 )
 
 
+def pick_crud_op() -> Literal["READ", "CREATE", "DELETE"]:
+    """
+    Função para escolher a operação CRUD a fazer sobre uma tabela.
+
+    :return: Um de 'READ', 'CREATE', 'DELETE'.
+    :rtype: Literal["READ", "CREATE", "DELETE"]
+    """
+    response = input("\n".join([
+        "\nEscolha uma operação das seguintes:",
+        "1 - Ler dados",
+        "2 - Criar dados",
+        "3 - Apagar dados",
+        "\n> "
+    ]))
+
+    if response == "1": return "READ"
+    elif response == "2": return "CREATE"
+    elif response == "3": return "DELETE"
+    else:
+        print("Opção inválida.")
+        pick_crud_op()
+
+    raise NotImplementedError("Estado impossível!")
+
 def main():
     """
     Esta função inicia a base de dados, carrega os dados base para a mesma
@@ -106,7 +131,7 @@ def main():
         exit(-1)
     print()
 
-
+    crud_op = pick_crud_op()
 
 if __name__ == "__main__":
     main()
