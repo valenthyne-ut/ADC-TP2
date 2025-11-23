@@ -9,6 +9,7 @@ que estes possam ser alterados.
 
 :Autores: Marino Nechifor e Valentim U. T.
 """
+from typing import Literal
 from app.database import initialize_database
 from app.database.schema.ClientSchema import ClientSchema
 from app.database.schema.ContactInfoSchema import ContactInfoSchema
@@ -83,7 +84,6 @@ def load_default_data() -> None:
                     specialization_id=db_technician_specialization.id
                 )
 
-
 def main():
     """
     Esta função inicia a base de dados, carrega os dados base para a mesma
@@ -106,7 +106,30 @@ def main():
         exit(-1)
     print()
 
+    while True:
+        raw_input = input("\nInsira um comando (H para ajuda.)\n> ")
+        if raw_input == "H":
+            print("\n".join([
+                "Comandos disponíveis: READ, CREATE, DELETE",
+                "Tabelas disponíveis: SERVICE, CLIENT, TECHNICIAN, APPOINTMENT",
+                "Qualquer texto inserido a seguir da tabela é tratado como argumento de filtro.",
+                "O caractér '_' é substituído por um espaço nos argumentos."
+                "Exemplos de estrutura de um comando completo:",
+                "",
+                "READ CONTACT_INFO L2000 -- Lê informações de contacto com um limite de resultados de 2000.",
+                "CREATE SERVICE Limpeza_de_piscina 200 120 -- Cria um serviço com o nome 'Limpeza de piscina' com um custo de 200€ e uma duração de 120 minutos."
+            ]))
+            continue
 
+        try:
+            command, table, *arguments = raw_input.split(" ")
+        except ValueError:
+            print("Input inválido.")
+            continue
+
+        print(command, table, len(arguments))
+        print(arguments)
+             
 
 if __name__ == "__main__":
     main()
